@@ -1,0 +1,23 @@
+name: Twice daily site rebuild
+on:
+  schedule:
+    - cron:  '0 12,18 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Make a commit
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        date > last_build.txt
+        git add last_build.txt
+        git commit -m "Daily site rebuild"
+        git push

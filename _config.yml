@@ -1,0 +1,83 @@
+title: Bayesian Optimization Hackathon for Chemistry and Materials
+nav_title: <span class="hide-very-narrow">BO Hackathon</span><br><small><span class="hide-very-narrow">with</span> Acceleration Consortium</small>
+
+event_date: 27-28 March 2024
+event_start_date: 27 March 2024
+event_close_date: 28 March 2024
+registration_opens_date: 22 February 2024
+registration_closes_date: 27 March 2024
+
+submissions_due: <a href="https://everytimezone.com/s/56bc0d6b">March 29 at 10:00 AM Eastern Time (ET)</a>
+
+author: Acceleration Consortium
+mailbox_address: sterling.baird@utoronto.ca
+
+description:
+  The BO Hackathon for Chemistry and Materials is a 2-day virtual event,
+  organized by the Acceleration Consortium @ University of Toronto and Merck
+  KGaA. Leading up to and at the beginning of the event, participants will
+  brainstorm projects and form teams. Over the course of the event, teams will
+  work together to deliver the project and showcase their project at the end.
+  After the hackathon, results will be collated and presented in a scholarly
+  article. Come join us to explore, collaborate, innovate, and contribute to the
+  advancement of Bayesian optimization for the physical sciences!
+
+url: "https://ac-bo-hackathon.github.io/"
+github_repo: AC-BO-Hackathon
+
+theme: minima
+
+# The actual visibility of the nav bar links is influenced by the event_status
+# and registration_status flags below
+header_pages:
+  - registration.md
+  - agenda.md
+  - projects.md
+  - submission.md
+  # - videos-slides.md
+  - resources.md
+  - faq.md
+  - about.md
+
+# Event status
+#   soon = event is yet to happen
+#    now = event is currently happening
+#   over = event has happened
+#  (demo = show all pages to demonstrate the template)
+event_status: demo
+
+# Open and close the registration form
+#   soon = Registration has not yet opened
+#   open = Registration form is open
+# closed = Registration form is now closed
+#  (demo = show all pages to demonstrate the template)
+registration_status: demo
+
+# Remove ".html" from default permalinks
+permalink: pretty
+
+# (See default layout below)
+collections:
+  projects:
+    output: true
+    permalink: /:collection/:name/
+
+# Social media links
+# (See default layout below)
+twitter:
+  card: summary_large_image
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/advert.png
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
+
+# Simplify tables of contents
+kramdown:
+  toc_levels: "2,3"
