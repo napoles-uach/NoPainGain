@@ -35,20 +35,20 @@ We:
 │   ├── chembl_pains_grid.png
 │   ├── gpt_grid.png
 │   └── compare_grid.png
-├── scripts/                # (opcional) helpers .py
+├── scripts/                # (optional) helper scripts
 └── README.md
 ```
 
 ## Quickstart
 
 ### Option A — Colab (recommended)
-1) Abre el notebook de Colab  
-2) Configura tu clave:
+1. Open the Colab notebook  
+2. Set your API key:
 ```python
 import os
 os.environ["OPENAI_API_KEY"] = "sk-..."
 ```
-3) Ejecuta todas las celdas. Se guardarán:
+3. Run all cells. Outputs will include:
 - `pains_chembl.csv`, `pains_chembl_eval.csv`
 - `chembl_fixes_gpt.csv`
 - `chembl_pains_grid.png`, `gpt_grid.png`, `compare_grid.png`
@@ -59,60 +59,61 @@ os.environ["OPENAI_API_KEY"] = "sk-..."
 python -m venv .venv && source .venv/bin/activate
 pip install -U pip
 
-# deps
+# dependencies
 pip install rdkit-pypi pandas openai chembl_webresource_client
 
 # set key
 export OPENAI_API_KEY=sk-...
 
-# run notebooks (manual) o convierte a script si quieres
+# run notebooks manually or adapt as scripts
 ```
 
 ## Reproducibility: end-to-end
-1) **Download PAINS from ChEMBL**
-   - `chembl_webresource_client` → filtra por MW, sanitiza SMILES, aplica **RDKit PAINS A/B/C**
-   - guarda **`pains_chembl.csv`**  
-2) **Evaluate originals**
-   - calcula QED, MW, logP, TPSA, HBD/HBA, ROT → **`pains_chembl_eval.csv`**
-   - genera **`chembl_pains_grid.png`**
-3) **LLM proposals**
-   - prompta el modelo (ej. `gpt-4o-mini`) para *minimal edits* (JSON estricto)  
-   - sanitiza, re-evalúa PAINS + propiedades → **`chembl_fixes_gpt.csv`**
-   - grilla **`gpt_grid.png`** (top no-PAINS)
-4) **Compare**
-   - une original vs propuesta por `chembl_id` (`parent`)  
-   - grilla lado a lado **`compare_grid.png`**
-5) **(Optional)** SA score + ranking multi-objetivo  
+1. **Download PAINS from ChEMBL**  
+   - `chembl_webresource_client` → filter by MW, sanitize SMILES, apply **RDKit PAINS A/B/C**  
+   - save **`pains_chembl.csv`**  
+2. **Evaluate originals**  
+   - compute QED, MW, logP, TPSA, HBD/HBA, ROT → **`pains_chembl_eval.csv`**  
+   - generate **`chembl_pains_grid.png`**  
+3. **LLM proposals**  
+   - prompt model (e.g. `gpt-4o-mini`) for *minimal edits* (strict JSON)  
+   - sanitize, re-evaluate PAINS + properties → **`chembl_fixes_gpt.csv`**  
+   - grid **`gpt_grid.png`** (top non-PAINS)  
+4. **Compare**  
+   - merge original vs proposal by `chembl_id` (`parent`)  
+   - side-by-side grid **`compare_grid.png`**  
+5. **(Optional)** SA score + multi-objective ranking  
    - `score = QED - 0.02*ROT - 0.1*SA`
 
 ## Key files
 - **Data**
-  - `data/pains_chembl.csv` — PAINS reales de ChEMBL (ID + SMILES + motivo)
-  - `data/pains_chembl_eval.csv` — originales con propiedades
-  - `data/chembl_fixes_gpt.csv` — propuestas GPT evaluadas
+  - `data/pains_chembl.csv` — PAINS molecules from ChEMBL (ID + SMILES + motif)
+  - `data/pains_chembl_eval.csv` — originals with properties
+  - `data/chembl_fixes_gpt.csv` — GPT-proposed evaluated molecules
 - **Figures**
-  - `figures/chembl_pains_grid.png` — ejemplos PAINS
-  - `figures/gpt_grid.png` — top candidatos reparados
-  - `figures/compare_grid.png` — antes/después
+  - `figures/chembl_pains_grid.png` — PAINS examples
+  - `figures/gpt_grid.png` — top repaired candidates
+  - `figures/compare_grid.png` — before/after comparisons
 
 ## Prompt (LLM)
 > *You are a medicinal chemist… propose N minimally edited variants (SMILES only) that remove the PAINS substructure… Return ONLY a valid JSON array of objects with key "proposal". Soft constraints: 200≤MW≤500, 0≤logP≤4.*
 
-_(ver notebook para la versión completa)_
+_(see notebook for the full version)_
 
 ## Why it’s different
-- No solo filtramos PAINS: **los reparamos** con ediciones mínimas guiadas por IA.  
-- Pipeline auditable con RDKit; resultados transparentes (CSV + PNG).  
-- Listo para hackathons / PoC y extensible (BRENK, reglas SMARTS, ADMET).
+- We don’t just filter PAINS: **we repair them** with minimal AI-guided edits.  
+- Transparent, auditable pipeline with RDKit.  
+- Ready for hackathons / PoC, extensible (BRENK, SMARTS rules, ADMET).  
 
 ## Cite
 If you use GAINS in a project/publication, please cite this repo.  
-_Add CITATION.cff or BibTeX here if deseas._
+_Add CITATION.cff or BibTeX here._
 
 ## License
-MIT (o la que prefieras).  
+MIT (or your preferred license).  
 _Add LICENSE file._
 
 ## Acknowledgements
 - ChEMBL (EBI), RDKit, OpenAI.  
-- Proyecto inspirado por la literatura PAINS (Baell & Holloway, 2010).
+- Inspired by PAINS literature (Baell & Holloway, 2010).
+
